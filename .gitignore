@@ -1,0 +1,4 @@
+.idea
+tfplan
+.terraform*
+terraform.tfstate*
