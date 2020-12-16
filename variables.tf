@@ -7,4 +7,3 @@ variable "location" {
   description = "location in which the remote state storage will be created"
   type        = string
 }
-
