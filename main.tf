@@ -11,7 +11,7 @@ resource "random_id" "randomID" {
 }
 
 resource "azurerm_storage_account" "sa" {
-  name                     = "diag${random_id.randomID.hex}"
+  name                     = join("", [var.storage_container_name, random_id.randomID.hex])
   resource_group_name      = data.azurerm_resource_group.rg.name
   location                 = var.location
   account_tier             = "Standard"
@@ -19,7 +19,7 @@ resource "azurerm_storage_account" "sa" {
 }
 
 resource "azurerm_storage_container" "sc" {
-  name = "tfstate"
+  name = var.storage_container_name
   storage_account_name = azurerm_storage_account.sa.name
   container_access_type = "private"
 }

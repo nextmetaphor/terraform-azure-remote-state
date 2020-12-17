@@ -1,5 +1,7 @@
 # terraform-azure-remote-state
-TODO
+[Terraform](https://www.terraform.io) module to create a storage account and container for [Terraform remote state in Azure](https://docs.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage).
+
+Note that the `terraform-azure-remote-state` module will use local and not remote state; the resources created here are to be used by subsequent modules. For more information about using the created resources, refer to the [`azurerm` backend documentation](https://www.terraform.io/docs/backends/types/azurerm.html). 
 
 ## Install
 This module requires that the following are installed locally:
