@@ -1,7 +1,7 @@
-output "storage_account_name" {
-  value = azurerm_storage_account.sa.name
+output "storage_account" {
+  value = module.remote_state_storage_account.storage_account
 }
 
-output "container_name" {
-  value = azurerm_storage_container.sc.name
+output "storage_container" {
+  value = azurerm_storage_container.sc
 }

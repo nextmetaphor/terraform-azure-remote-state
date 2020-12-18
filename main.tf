@@ -2,24 +2,15 @@ data "azurerm_resource_group" "rg" {
   name = var.resource_group_name
 }
 
-resource "random_id" "randomID" {
-  keepers = {
-    resource_group = data.azurerm_resource_group.rg.name
-  }
-
-  byte_length = 8
-}
-
-resource "azurerm_storage_account" "sa" {
-  name                     = join("", [var.storage_container_name, random_id.randomID.hex])
-  resource_group_name      = data.azurerm_resource_group.rg.name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+module "remote_state_storage_account" {
+  source = "git::https://github.com/nextmetaphor/terraform-azure-storage-account.git"
+  location = var.location
+  resource_group_name = var.resource_group_name
+  storage_account_name_prefix = "tfstate"
 }
 
 resource "azurerm_storage_container" "sc" {
   name = var.storage_container_name
-  storage_account_name = azurerm_storage_account.sa.name
+  storage_account_name = module.remote_state_storage_account.storage_account.name
   container_access_type = "private"
 }
